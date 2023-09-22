@@ -3,10 +3,10 @@ version: "3"
 
 # Define services (containers to be created)
 services:
-  # Service name: pingvin
-  pingvin:
+  # Service name: pingvin-share
+  pingvin-share:
     # Name of the service
-    container_name: pingvin
+    container_name: pingvin-share
 
     # Image to use for this container
     image: stonith404/pingvin-share:latest
@@ -16,7 +16,7 @@ services:
 
     ports:
       # Port mapping between host and container
-      - 3003:3000/tcp # Web UI HTTP
+      - 3000:3000/tcp # Web UI HTTP
 
     environment:
       # Environment variables
@@ -25,10 +25,10 @@ services:
     volumes:
       # Defines volume mounts for the service
       - type: bind
-        source: /mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin/data
+        source: /mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin-share/data
         target: /opt/app/backend/data
       - type: bind
-        source: /mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin/images
+        source: /mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin-share/images
         target: /opt/app/frontend/public/img
 
     # Restart policy for the container when it exits
