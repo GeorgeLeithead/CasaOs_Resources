@@ -1,5 +1,5 @@
 # Docker Compose version
-version: "3"
+version: "3.8"
 
 # Define services (containers to be created)
 services:
@@ -32,4 +32,4 @@ services:
         target: /opt/app/frontend/public/img
 
     # Restart policy for the container when it exits
-    restart: unless-stopped      
+    restart: unless-stopped

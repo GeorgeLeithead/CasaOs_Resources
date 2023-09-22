@@ -1,5 +1,5 @@
 # Docker Compose version
-version: "3"
+version: "3.8"
 
 # Define services (containers to be created)
 services:
@@ -12,25 +12,32 @@ services:
     # Use the specified version of the pihole image
     image: pihole/pihole:latest
 
+    labels:
+      icon: https://github.com/GeorgeLeithead/CasaOs_Resources/blob/main/PiHole/pihole.png?raw=true
+
     # Expose and map ports (host:container)
     ports:
-      - "53:53/tcp" # DNS (TCP)
-      - "53:53/udp" # DNS (UDP)
-      - "547:547/udp" # DNS (UDP)
-      - "67:67/udp" # DNS (UDP)
-      - "39165:80/tcp" # Web UI HTTP
+      - 53:53/tcp # DNS (TCP)
+      - 53:53/udp # DNS (UDP)
+      - 547:547/udp # DNS (UDP)
+      - 67:67/udp # DNS (UDP)
+      - 39165:80/tcp # Web UI HTTP
 
     # Environment variables
     environment:
-      TZ: "Eurpoe/London" # Time Zone; Update this to your time zone
-      WEBPASSWORD: "casaos" # Admin password for web UI; Change this to your desired admin password
-      PROXY_LOCATION: "pi.hole"
-      VIRTUAL_HOST: "pi.hole"
+      - PROXY_LOCATION=pi.hole
+      - TZ=Eurpoe/London # Time Zone; Update this to your time zone
+      - VIRTUAL_HOST=pi.hole
+      - WEBPASSWORD=casaos  # Admin password for web UI; Change this to your desired admin password  
 
     # Mount volumes for persistent data
     volumes:
-      - "/mnt/Storage1_nvme0n1p1/DATA/AppData/pihole/data/pihole:/etc/pihole" # Pi-hole data
-      - "/mnt/Storage1_nvme0n1p1/DATA/AppData/pihole/data/dnsmasq:/etc/dnsmasq.d" # dnsmasq data
+      - type: bind
+        source: /mnt/Storage1_nvme0n1p1/DATA/AppData/Pi-hole/etc/dnsmasq.d # Default is /DATA/AppData/Pi-hole/etc/dnsmasq.d
+        target: /etc/dnsmasq.d
+      - type: bind
+        source: /mnt/Storage1_nvme0n1p1/DATA/AppData/Pi-hole/etc/pihole # Default is /DATA/AppData/Pi-hole/etc/pihole
+        target: /etc/pihole
 
     # Restart policy for the container when it exits
     restart: unless-stopped
