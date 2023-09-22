@@ -1,0 +1,106 @@
+name: jellyfin
+services:
+  jellyfin:
+    cpu_shares: 50
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=Eurpoe/London
+    image: linuxserver/jellyfin:10.8.10
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Jellyfin/icon.png
+    ports:
+      - target: 8920
+        published: "8920"
+        protocol: tcp
+      - target: 1900
+        published: "1900"
+        protocol: tcp
+      - target: 7359
+        published: "7359"
+        protocol: tcp
+      - target: 8096
+        published: "8096"
+        protocol: tcp
+    restart: always
+    volumes:
+      - type: bind
+        source: /mnt/Storage1_nvme0n1p1/DATA/AppData/Jellyfin/config
+        target: /config
+      - type: bind
+        source: /opt/vc/lib
+        target: /opt/vc/lib
+      - type: bind
+        source: /mnt/Storage1_nvme0n1p1/Media
+        target: /Media
+    x-casaos:
+      envs:
+        - container: TZ
+          description:
+            en_us: ""
+        - container: PUID
+          description:
+            en_us: ""
+        - container: PGID
+          description:
+            en_us: ""
+      ports:
+        - container: "8920"
+          description:
+            en_us: ""
+        - container: "1900"
+          description:
+            en_us: ""
+        - container: "7359"
+          description:
+            en_us: ""
+        - container: "8096"
+          description:
+            en_us: ""
+      volumes:
+        - container: /config
+          description:
+            en_us: ""
+        - container: /opt/vc/lib
+          description:
+            en_us: ""
+        - container: /Media
+          description:
+            en_us: ""
+    devices: []
+    cap_add: []
+    command: []
+    network_mode: bridge
+    privileged: false
+    container_name: ""
+    deploy:
+      resources:
+        limits:
+          memory: 3763M
+x-casaos:
+  architectures:
+    - amd64
+  author: CasaOS User
+  category: unknown
+  description:
+    en_us: Jellyfin enables you to collect, manage, and stream your media. Run the
+      Jellyfin server on your system and gain access to the leading
+      free-software entertainment system, bells and whistles included.
+  developer: unknown
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Jellyfin/icon.png
+  index: /
+  main: jellyfin
+  port_map: "8096"
+  scheme: http
+  store_app_id: jellyfin
+  tagline:
+    en_us: This is a compose app converted from a legacy app (CasaOS v0.4.3 or
+      earlier)
+  thumbnail: ""
+  tips:
+    custom: This is a compose app converted from a legacy app (CasaOS v0.4.3 or
+      earlier)
+  title:
+    en_us: Jellyfin
+    custom: ""
+  hostname: ""

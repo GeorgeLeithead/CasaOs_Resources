@@ -7,7 +7,7 @@ services:
   pingvin-share:
     # Name of the service
 
-    image: stonith404/pingvin-share
+    image: stonith404/pingvin-share:latest
     # Image to be used for this service
 
     restart: unless-stopped
@@ -22,8 +22,8 @@ services:
     volumes:
       # Defines volume mounts for the service
 
-      - "/mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin-share/data:/opt/app/backend/data"
+      - "/mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin/data:/opt/app/backend/data"
       # Maps data directory from host to container's backend data directory
 
-      - "/mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin-share/images:/opt/app/frontend/public/img"
+      - "/mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin/images:/opt/app/frontend/public/img"
       # Maps images directory from host to container's frontend public img directory

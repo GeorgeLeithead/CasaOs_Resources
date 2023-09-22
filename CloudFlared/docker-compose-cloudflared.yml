@@ -1,0 +1,69 @@
+name: cloudflared
+services:
+  cloudflared:
+    cpu_shares: 90
+    command: []
+    container_name: cloudflared
+    deploy:
+      resources:
+        limits:
+          memory: 3763M
+    image: wisdomsky/cloudflared-web:2023.8.2
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Cloudflared/icon.png
+    ports:
+      - target: 14333
+        published: "14333"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /mnt/Storage1_nvme0n1p1/DATA/AppData/casaos-cloudflared/config
+        target: /config
+    x-casaos:
+      ports:
+        - container: "14333"
+          description:
+            en_us: Token Setup WebUI
+      volumes:
+        - container: /config
+          description:
+            en_us: Contains config file where cloudflare token is stored.
+    devices: []
+    cap_add: []
+    environment: []
+    network_mode: host
+    privileged: false
+x-casaos:
+  architectures:
+    - amd64
+    - arm
+    - arm64
+  author: WisdomSky
+  category: Developer
+  description:
+    en_us: Cloudflare Tunnel offers an easy way to expose web servers securely to
+      the internet, without opening up firewall ports and configuring ACLs.
+      Cloudflare Tunnel also ensures requests route through Cloudflare before
+      reaching the web server, so you can be sure attack traffic is stopped with
+      Cloudflare’s WAF and Unmetered DDoS mitigation, and authenticated with
+      Access if you’ve enabled those features for your account.
+  developer: Cloudflare Inc.
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Cloudflared/icon.png
+  index: /
+  main: cloudflared
+  port_map: "14333"
+  scheme: http
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Cloudflared/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Cloudflared/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Cloudflared/screenshot-3.png
+  store_app_id: cloudflared
+  tagline:
+    en_us: A tunneling daemon by Cloudflare that safely exposes your web servers
+      into the internet.
+  thumbnail: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Cloudflared/icon.png
+  title:
+    custom: ""
+    en_us: Cloudflared
