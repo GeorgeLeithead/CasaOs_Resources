@@ -1,29 +1,35 @@
-version: "3.8"
-# Specifies the version of the Docker Compose file format
+# Docker Compose version
+version: "3"
 
+# Define services (containers to be created)
 services:
-  # Defines a set of services to be run together
-
-  pingvin-share:
+  # Service name: pingvin
+  pingvin:
     # Name of the service
+    container_name: pingvin
 
+    # Image to use for this container
     image: stonith404/pingvin-share:latest
-    # Image to be used for this service
 
-    restart: unless-stopped
-    # Service will always restart unless it's manually stopped
+    labels:
+      icon: "https://github.com/GeorgeLeithead/CasaOs_Resources/blob/main/PingVin/pingvin.png?raw=true"
 
     ports:
       # Port mapping between host and container
+      - 3003:3000/tcp # Web UI HTTP
 
-      - 3000:3000
-      # Maps port 3000 on the host to port 3000 in the container
+    environment:
+      # Environment variables
+      TZ: "Eurpoe/London" # Time Zone; Update this to your time zone
 
     volumes:
       # Defines volume mounts for the service
+      - type: bind
+        source: /mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin/data
+        target: /opt/app/backend/data
+      - type: bind
+        source: /mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin/images
+        target: /opt/app/frontend/public/img
 
-      - "/mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin/data:/opt/app/backend/data"
-      # Maps data directory from host to container's backend data directory
-
-      - "/mnt/Storage1_nvme0n1p1/DATA/AppData/pingvin/images:/opt/app/frontend/public/img"
-      # Maps images directory from host to container's frontend public img directory
+    # Restart policy for the container when it exits
+    restart: unless-stopped      
