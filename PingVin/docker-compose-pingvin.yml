@@ -12,7 +12,7 @@ services:
     image: stonith404/pingvin-share:latest
 
     labels:
-      icon: "https://github.com/GeorgeLeithead/CasaOs_Resources/blob/main/PingVin/pingvin.png?raw=true"
+      icon: https://github.com/GeorgeLeithead/CasaOs_Resources/blob/main/PingVin/pingvin.png?raw=true
 
     ports:
       # Port mapping between host and container
